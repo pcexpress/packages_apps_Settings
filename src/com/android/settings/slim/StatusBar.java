@@ -83,8 +83,8 @@ private CheckBoxPreference mStatusBarTraffic;
         mStatusBarAutoHide.setValue(String.valueOf(statusBarAutoHideValue));
         updateStatusBarAutoHideSummary(statusBarAutoHideValue);
         mStatusBarAutoHide.setOnPreferenceChangeListener(this);
-
-mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+ mStatusBarTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC);
+ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_TRAFFIC, 1) == 1));
 
         mStatusBarQuickPeek = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_QUICK_PEEK);
