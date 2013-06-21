@@ -5852,6 +5852,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_help_delete_last_entry">Removing every %1$s in the list will disable the feature entirely.</string>
     <string name="shortcut_action_help">Help</string>
 
+
     <string name="icon_picker_type">Select icon type:</string>
     <string name="icon_default">Default</string>
     <string name="icon_presets">System icons</string>
@@ -5913,5 +5914,19 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="icon_color_mode_all_icons">All icons</string>
     <string name="icon_color_mode_system_icons">System icons</string>
     <string name="icon_color_mode_system_custom_icons">System and custom icons</string>
+
+    <!-- Display settings -->
+    <string name="gpu_clock_title">GPU clock speed</string>
+    <string name="gpu_clock_summary" translatable="false">%1$s</string>
+    
+    <!-- ListView animation -->
+    <string name="listview_animation_title">ListView Animation</string>
+    <string name="listview_off">Off</string>
+    <string name="listview_wave_left">Wave (Left)</string>
+    <string name="listview_wave_right">Wave (Right)</string>
+    <string name="listview_alpha">Alpha</string>
+    <string name="listview_swing">Swing</string>
+    <string name="listview_translate_left">Translate (Left)</string>
+    <string name="listview_translate_right">Translate (Right)</string>
 
 </resources>
