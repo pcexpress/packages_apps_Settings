@@ -2226,7 +2226,8 @@
         <item>@string/listview_wave_left</item>
         <item>@string/listview_wave_right</item>
         <item>@string/listview_alpha</item>
-        <item>@string/listview_swing</item>
+        <item>@string/listview_stack_top</item>
+        <item>@string/listview_stack_botom</item>
         <item>@string/listview_translate_left</item>
         <item>@string/listview_translate_right</item>
     </string-array>
