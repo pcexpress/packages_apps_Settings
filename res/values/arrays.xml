@@ -2228,8 +2228,11 @@
         <item>@string/listview_alpha</item>
         <item>@string/listview_scale</item>
         <item>@string/listview_stack_top</item>
-        <item>@string/listview_stack_botom</item>
-        <item>@string/listview_translate_left</item>
+
+        <item>@string/listview_stack_bottom</item>
+        <item>@string/listview_stack_unfold</item>
+        <item>@string/listview_stack_fold</item>
+      <item>@string/listview_translate_left</item>
         <item>@string/listview_translate_right</item>
     </string-array>
     
@@ -2243,6 +2246,8 @@
         <item>6</item>
         <item>7</item>
         <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>
 
 </resources>

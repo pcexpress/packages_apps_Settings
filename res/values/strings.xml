@@ -5928,6 +5928,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="listview_alpha">Scale</string>
     <string name="listview_stack_top">Stack (Top)</string>
     <string name="listview_stack_bottom">Stack (Bottom)</string>
+    <string name="listview_unfold">Unfold</string>
+    <string name="listview_fold">Fold</string>
     <string name="listview_translate_left">Translate (Left)</string>
     <string name="listview_translate_right">Translate (Right)</string>
 
