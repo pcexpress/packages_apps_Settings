@@ -5925,6 +5925,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="listview_wave_left">Wave (Left)</string>
     <string name="listview_wave_right">Wave (Right)</string>
     <string name="listview_alpha">Alpha</string>
+    <string name="listview_alpha">Scale</string>
     <string name="listview_stack_top">Stack (Top)</string>
     <string name="listview_stack_bottom">Stack (Bottom)</string>
     <string name="listview_translate_left">Translate (Left)</string>
