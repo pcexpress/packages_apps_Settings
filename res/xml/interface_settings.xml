@@ -13,6 +13,15 @@
             android:entryValues="@array/listview_animation_values"
             android:defaultValue="1" />
 
+        <ListPreference
+            android:key="listview_interpolator"
+            android:dialogTitle="@string/listview_interpolator_title"
+            android:title="@string/listview_interpolator_title"
+            android:entries="@array/listview_interpolator_entries"
+            android:entryValues="@array/listview_interpolator_values"
+            android:defaultValue="0" />
+
+
         <Preference
             android:key="custom_carrier_label"
             android:title="@string/custom_carrier_label_title" />
