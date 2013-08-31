@@ -16,17 +16,20 @@
 
 package com.android.settings.slim;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
+import android.content.ContentResolver; 
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
@@ -34,9 +37,20 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.text.Spannable;
 import android.widget.EditText;
+import android.util.Log;
+import android.content.res.Configuration;
+import android.content.res.Resources; 
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem; 
+import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo; 
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -45,16 +59,22 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_HIGH_END_GFX = "high_end_gfx";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
-
+ private static final String KEY_LISTVIEW_ANIMATION = "listview_animation"; 
+private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+ 
+  
     private Preference mCustomLabel;
     private Preference mLcdDensity;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
-
+private ListPreference mListViewAnimation;
     private String mCustomLabelText = null;
     private int newDensityValue;
+ private ListPreference mListViewInterpolator; 
+
 
     DensityChanger densityFragment;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +85,27 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         PreferenceScreen prefs = getPreferenceScreen();
         PreferenceCategory category = (PreferenceCategory) prefs.findPreference(CATEGORY_INTERFACE);
 
+	
+ 
         mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
         mUseAltResolver.setOnPreferenceChangeListener(this);
         mUseAltResolver.setChecked(Settings.System.getInt(
                 getActivity().getContentResolver(),
                 Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0) == 1);
+
+	mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
+        int listviewanimation = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.LISTVIEW_ANIMATION, 1);
+        mListViewAnimation.setValue(String.valueOf(listviewanimation));
+        mListViewAnimation.setSummary(mListViewAnimation.getEntry());
+        mListViewAnimation.setOnPreferenceChangeListener(this); 
+
+  	mListViewInterpolator = (ListPreference) findPreference(KEY_LISTVIEW_INTERPOLATOR);
+        int listviewinterpolator = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.LISTVIEW_INTERPOLATOR, 0);
+        mListViewInterpolator.setValue(String.valueOf(listviewinterpolator));
+        mListViewInterpolator.setSummary(mListViewInterpolator.getEntry());
+        mListViewInterpolator.setOnPreferenceChangeListener(this);
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         mCustomLabel.setOnPreferenceClickListener(mCustomLabelClicked);
@@ -115,27 +151,48 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+	
     }
 
     @Override
     public void onPause() {
         super.onPause();
+	
     }
 
+ @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mUseAltResolver) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.ACTIVITY_RESOLVER_USE_ALT,
                     (Boolean) newValue ? 1 : 0);
             return true;
+ 	} else if (preference == mListViewAnimation) {
+            int listviewanimation = Integer.valueOf((String) newValue);
+            int index = mListViewAnimation.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LISTVIEW_ANIMATION,
+                  listviewanimation);
+           mListViewAnimation.setSummary(mListViewAnimation.getEntries()[index]);
+            return true; 
+	} else if (preference == mListViewInterpolator) {
+            int listviewinterpolator = Integer.valueOf((String) newValue);
+	    int index = mListViewInterpolator.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LISTVIEW_INTERPOLATOR,
+                    listviewinterpolator);
+            mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
+            return true; 
         } else if (preference == mHighEndGfx) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HIGH_END_GFX_ENABLED,
                     (Boolean) newValue ? 1 : 0);
             return true;
-        }
-        return false;
-    }
+	} 
+         return false;
+     } 
+        
+    
 
     public OnPreferenceClickListener mCustomLabelClicked = new OnPreferenceClickListener() {
         @Override

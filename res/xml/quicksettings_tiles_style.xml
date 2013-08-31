@@ -22,10 +22,10 @@
     <PreferenceCategory
         android:title="@string/quicksettings_tiles_style">
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-             android:key="quick_tiles_bg_color"
-             android:title="@string/quick_tiles_bg_color_title"
-             android:defaultValue="0xff161616" />
+       <Preference
+			android:key="random_colors"
+			android:title="@string/random_colors_title"
+			android:summary="@string/random_colors_summary" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
              android:key="quick_tiles_bg_pressed_color"

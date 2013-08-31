@@ -62,6 +62,7 @@ public class QuickSettingsUtil {
     public static final String TILE_QUIETHOURS = "toggleQuietHours";
     public static final String TILE_VOLUME = "toggleVolume";
     public static final String TILE_EXPANDED_DESKTOP = "toggleExpandedDesktop";
+    public static final String TILE_CAMERA = "toggleCamera";
     public static final String TILE_CUSTOMSHORTCUT = "toggleCustomShortcut";
     public static final String TILE_MUSIC = "toggleMusic";
 
@@ -95,6 +96,9 @@ public class QuickSettingsUtil {
         TILES.put(TILE_BLUETOOTH, new QuickSettingsUtil.TileInfo(
                 TILE_BLUETOOTH, R.string.title_tile_bluetooth,
                 "com.android.systemui:drawable/ic_qs_bluetooth_neutral", true));
+        TILES.put(TILE_CAMERA, new QuickSettingsUtil.TileInfo(
+                TILE_CAMERA, R.string.title_tile_camera,
+                "com.android.systemui:drawable/ic_qs_camera", true));
         TILES.put(TILE_BRIGHTNESS, new QuickSettingsUtil.TileInfo(
                 TILE_BRIGHTNESS, R.string.title_tile_brightness,
                 "com.android.systemui:drawable/ic_qs_brightness_auto_off", true));

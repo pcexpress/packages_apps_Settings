@@ -26,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Handler;
@@ -204,6 +205,11 @@ public class QuickSettingsTiles extends Fragment {
             QuickSettingsUtil.TILES_DEFAULT.remove(QuickSettingsUtil.TILE_BLUETOOTH);
         }
 
+        // Don't show the Camera tile if the device has no cameras
+        if (!deviceSupportsCamera()) {
+            QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_CAMERA);
+        }
+
         // Dont show the profiles tile if profiles are disabled
         if (Settings.System.getInt(resolver, Settings.System.SYSTEM_PROFILES_ENABLED, 1) != 1) {
             QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_PROFILE);
@@ -237,6 +243,11 @@ public class QuickSettingsTiles extends Fragment {
         if (!fchargeIsPossible) {
             QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_FCHARGE);
         }
+
+ 	// Don't show the Camera tile if the device has no cameras
+        if (!deviceSupportsCamera()) {
+            QuickSettingsUtil.TILES.remove(QuickSettingsUtil.TILE_CAMERA);
+        } 
 
     }
 
@@ -418,4 +429,7 @@ public class QuickSettingsTiles extends Fragment {
         return (tm.getLteOnCdmaMode() == PhoneConstants.LTE_ON_CDMA_TRUE) || tm.getLteOnGsmMode() != 0;
     }
 
+    private boolean deviceSupportsCamera() {
+        return Camera.getNumberOfCameras() > 0;
+    }
 }

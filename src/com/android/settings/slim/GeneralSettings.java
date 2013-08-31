@@ -16,6 +16,9 @@
 
 package com.android.settings.slim;
 
+import android.app.Activity;
+import android.content.ContentResolver; 
+import android.content.res.Resources;
 import android.app.ActivityManagerNative;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -25,6 +28,14 @@ import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem; 
+import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -38,14 +49,18 @@ public class GeneralSettings extends SettingsPreferenceFragment implements
 
     private static final String KEY_CHRONUS = "chronus";
     private static final String KEY_LOW_BATTERY_WARNING_POLICY = "pref_low_battery_warning_policy";
+private static final String KEY_VIBRATION_MULTIPLIER = "vibrator_multiplier"; 
 
     private ListPreference mLowBatteryWarning;
+private ListPreference mVibrationMultiplier; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.slim_general_settings);
+
+updateVibMulti();
 
         mLowBatteryWarning = (ListPreference) findPreference(KEY_LOW_BATTERY_WARNING_POLICY);
         mLowBatteryWarning.setOnPreferenceChangeListener(this);
@@ -60,12 +75,29 @@ public class GeneralSettings extends SettingsPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+updateVibMulti();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+updateVibMulti();
     }
+
+private void updateVibMulti() {
+        	
+	/* Globally Change the Vibration Multiplier */
+         mVibrationMultiplier = (ListPreference) findPreference(KEY_VIBRATION_MULTIPLIER);
+         
+	 if(mVibrationMultiplier != null) {
+            mVibrationMultiplier.setOnPreferenceChangeListener(this);
+            String currentValue = Float.toString(Settings.System.getFloat(getActivity()
+                     .getContentResolver(), Settings.System.VIBRATION_MULTIPLIER, 1)); 
+            mVibrationMultiplier.setValue(currentValue);
+            mVibrationMultiplier.setSummary(currentValue);
+        }
+    }
+
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mLowBatteryWarning) {
@@ -76,7 +108,14 @@ public class GeneralSettings extends SettingsPreferenceFragment implements
                     lowBatteryWarning);
             mLowBatteryWarning.setSummary(mLowBatteryWarning.getEntries()[index]);
             return true;
-        }
+        } else  if (preference == mVibrationMultiplier) {
+            String currentValue = (String) newValue;
+            float val = Float.parseFloat(currentValue);
+            Settings.System.putFloat(getActivity().getContentResolver(),
+                     Settings.System.VIBRATION_MULTIPLIER, val); 
+            mVibrationMultiplier.setSummary(currentValue);
+            return true;
+        } 
 
         return false;
     }

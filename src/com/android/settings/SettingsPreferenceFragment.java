@@ -46,18 +46,22 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
     private static final int MENU_HELP = Menu.FIRST + 100;
 
     private SettingsDialogFragment mDialogFragment;
+	protected ContentResolver mContentAppRes;
 
     private String mHelpUrl;
 
     protected Context mContext;
+ 
 
     @Override
+
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         mContext = getActivity().getApplicationContext();
 
-        // Prepare help url and enable menu if necessary
+   mContentAppRes = mContext.getContentResolver();
+     // Prepare help url and enable menu if necessary
         int helpResource = getHelpResource();
         if (helpResource != 0) {
             mHelpUrl = getResources().getString(helpResource);

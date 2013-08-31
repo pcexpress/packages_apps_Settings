@@ -49,6 +49,14 @@
             android:entryValues="@array/pref_low_battery_warning_policy_values"
             android:defaultValue="0" />
 
+	<ListPreference
+            android:key="vibrator_multiplier"
+            android:persistent="false"
+            android:dialogTitle="@string/vibrator_multiplier_title"
+            android:title="@string/vibrator_multiplier_title"
+            android:entries="@array/vibration_multiplier_values"
+            android:entryValues="@array/vibration_multiplier_values" /> 
+
     </PreferenceCategory>
 
 </PreferenceScreen>
