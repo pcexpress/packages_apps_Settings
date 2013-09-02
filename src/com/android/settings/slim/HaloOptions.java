@@ -166,8 +166,8 @@ public class HaloOptions extends SettingsPreferenceFragment
             }
             return true;
         } else if (preference == mHaloSize) {
-            float haloSize = Float.valueOf((String) Value);
-            int index = mHaloSize.findIndexOfValue((String) Value);
+            float haloSize = Float.valueOf((String) newValue);
+            int index = mHaloSize.findIndexOfValue((String) newValue);
             Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.HALO_SIZE, haloSize);
             mHaloSize.setSummary(mHaloSize.getEntries()[index]);
