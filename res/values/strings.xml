@@ -4578,4 +4578,5 @@
     <!-- interface settings for Halo -->
     <string name="halo_options_title">HALO</string>
     <string name="halo_options_summary">View or change HALO activities or tasks</string>
+     <string name="style_settings_title">Style</string>
 </resources>
