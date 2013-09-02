@@ -4538,4 +4538,46 @@
 
     <!-- Text to display in regulatory info screen (from device overlay). -->
     <string name="regulatory_info_text"></string>
+
+ <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
+    <string name="app_halo_label_black">HALO Blacklist</string>
+    <string name="app_halo_label_white">HALO Whitelist</string>
+
+ <!-- HALO Options -->
+    <string name="halo_enabled_title">Enable HALO</string>
+    <string name="halo_enabled_summary">When checked HALO feature is enabled</string>
+    <string name="halo_hide_title">Hide After Activity</string>
+    <string name="halo_hide_summary">Appears then scrolls out of sight</string>
+    <string name="halo_reversed_title">Reverse Gestures</string>
+    <string name="halo_reversed_summary">Drag using double tap swipe gestures</string>
+    <string name="halo_state_title">Current Policy</string>
+    <string name="halo_state_summary">Black or white list HALO notifications</string>
+    <string name="halo_state_black">Blacklist</string>
+    <string name="halo_state_white">Whitelist</string>
+    <string name="halo_pause_title">Pause Active App</string>
+    <string name="halo_pause_summary">Open task while underlying app pauses</string>
+
+    <!-- HALO Colors -->
+    <string name="halo_colors_title">Custom Colors</string>
+    <string name="halo_colors_summary">Use custom colors for HALO instead</string>
+    <string name="halo_circle_color_title">Circle Color</string>
+    <string name="halo_bubble_color_title">Speech Bubble Color</string>
+    <string name="halo_bubble_text_color_title">Bubble Text Color</string>
+    <string name="halo_effect_color_title">Effect Color</string>
+    <string name="halo_effect_color_summary">Requires statusbar to restart</string>
+
+    <!-- HALO Size -->
+    <string name="halo_size_title">HALO Size</string>
+    <string name="halo_size_miniscule">Miniscule</string>
+    <string name="halo_size_small">Small</string>
+    <string name="halo_size_default">Default</string>
+    <string name="halo_size_large">Large</string>
+    <string name="halo_size_gigantic">Gigantic</string>
+    <string name="halo_size_monster">Monster</string>
+
+<! interface settings for Halo -->
+ <string name="halo_options_title">HALO</string>
+    <string name="halo_options_summary">View or change HALO activities or tasks</string>
+
+
 </resources>

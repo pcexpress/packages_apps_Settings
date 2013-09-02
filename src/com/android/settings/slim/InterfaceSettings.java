@@ -16,13 +16,19 @@
 
 package com.android.settings.slim;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.util.Log;
+import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.provider.Settings;
@@ -36,6 +42,7 @@ import android.text.Spannable;
 import android.widget.EditText;
 
 import com.android.settings.R;
+import com.android.settings.Utils;
 import com.android.settings.SettingsPreferenceFragment;
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
@@ -46,13 +53,14 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
+ private static final String KEY_HALO_OPTIONS = "halo_options";
 
     private Preference mCustomLabel;
     private Preference mLcdDensity;
     private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
-
+ private Preference mHaloOptions;
     private String mCustomLabelText = null;
     private int newDensityValue;
 
@@ -105,6 +113,8 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mRamBar = findPreference(PREF_RECENTS_RAM_BAR);
         mRamBar.setOnPreferenceChangeListener(this);
         updateRamBar();
+
+	 mHaloOptions = findPreference(KEY_HALO_OPTIONS);
 
     }
 

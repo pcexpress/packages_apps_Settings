@@ -1577,6 +1577,7 @@
         />
 
         <!-- extra activities start -->
+   <activity android:name=".slim.HaloOptions" />
         <activity android:name=".slim.notificationlight.NotificationLightSettings" />
         <activity android:name=".slim.notificationlight.BatteryLightSettings" />
         <activity android:name=".slim.NotificationDrawerSettings" />
