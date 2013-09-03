@@ -4636,5 +4636,9 @@
     <string name="color_five">Color five</string>
     <string name="color_six">Color six</string>
 
+<!-- Vibration Multiplier -->
+    <string name="vibrator_multiplier_title">Vibration multiplier</string>
+
+
 
 </resources>
