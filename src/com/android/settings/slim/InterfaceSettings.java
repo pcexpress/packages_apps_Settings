@@ -22,17 +22,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.util.Log;
-import android.content.res.Configuration;
+import android.content.ContentResolver; 
 import android.content.res.Resources;
-import android.os.RemoteException;
-import android.os.ServiceManager;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
@@ -40,9 +37,18 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.text.Spannable;
 import android.widget.EditText;
+import android.util.Log;
+import android.content.res.Configuration;
+import android.content.res.Resources; 
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem; 
+import android.view.Window;
+import android.widget.AdapterView.AdapterContextMenuInfo; 
 
 import com.android.settings.R;
-import com.android.settings.Utils;
 import com.android.settings.SettingsPreferenceFragment;
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
@@ -54,7 +60,9 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
  private static final String KEY_HALO_OPTIONS = "halo_options";
-
+    private static final String KEY_LISTVIEW_ANIMATION = "listview_animation"; 
+private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+ 
     private Preference mCustomLabel;
     private Preference mLcdDensity;
     private Preference mRamBar;
@@ -74,6 +82,20 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
 
         PreferenceScreen prefs = getPreferenceScreen();
         PreferenceCategory category = (PreferenceCategory) prefs.findPreference(CATEGORY_INTERFACE);
+
+	mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
+        int listviewanimation = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.LISTVIEW_ANIMATION, 1);
+        mListViewAnimation.setValue(String.valueOf(listviewanimation));
+        mListViewAnimation.setSummary(mListViewAnimation.getEntry());
+        mListViewAnimation.setOnPreferenceChangeListener(this); 
+
+  	mListViewInterpolator = (ListPreference) findPreference(KEY_LISTVIEW_INTERPOLATOR);
+        int listviewinterpolator = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.LISTVIEW_INTERPOLATOR, 0);
+        mListViewInterpolator.setValue(String.valueOf(listviewinterpolator));
+        mListViewInterpolator.setSummary(mListViewInterpolator.getEntry());
+        mListViewInterpolator.setOnPreferenceChangeListener(this);
 
         mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
         mUseAltResolver.setOnPreferenceChangeListener(this);
@@ -162,7 +184,23 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     Settings.System.HIGH_END_GFX_ENABLED,
                     (Boolean) newValue ? 1 : 0);
             return true;
-        }
+        }  else if (preference == mListViewAnimation) {
+            int listviewanimation = Integer.valueOf((String) newValue);
+            int index = mListViewAnimation.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LISTVIEW_ANIMATION,
+                  listviewanimation);
+           mListViewAnimation.setSummary(mListViewAnimation.getEntries()[index]);
+            return true; 
+	} else if (preference == mListViewInterpolator) {
+            int listviewinterpolator = Integer.valueOf((String) newValue);
+	    int index = mListViewInterpolator.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LISTVIEW_INTERPOLATOR,
+                    listviewinterpolator);
+            mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
+            return true; 
+	}
         return false;
     }
 
