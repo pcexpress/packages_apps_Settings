@@ -46,21 +46,22 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
     private static final int MENU_HELP = Menu.FIRST + 100;
 
     private SettingsDialogFragment mDialogFragment;
+	protected ContentResolver mContentAppRes;
 
     private String mHelpUrl;
 
     protected Context mContext;
-
-    // Cache the content resolver for async callbacks
-    private ContentResolver mContentResolver;
+ 
 
     @Override
+
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         mContext = getActivity().getApplicationContext();
 
-        // Prepare help url and enable menu if necessary
+   mContentAppRes = mContext.getContentResolver();
+     // Prepare help url and enable menu if necessary
         int helpResource = getHelpResource();
         if (helpResource != 0) {
             mHelpUrl = getResources().getString(helpResource);
@@ -112,11 +113,7 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
      * Returns the ContentResolver from the owning Activity.
      */
     protected ContentResolver getContentResolver() {
-        Context context = getActivity();
-        if (context != null) {
-            mContentResolver = context.getContentResolver();
-        }
-        return mContentResolver;
+        return getActivity().getContentResolver();
     }
 
     /**
@@ -245,11 +242,8 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
                     mParentFragment = getFragmentManager().findFragmentById(mParentFragmentId);
                     if (!(mParentFragment instanceof DialogCreatable)) {
                         throw new IllegalArgumentException(
-                                (mParentFragment != null 
-                                        ? mParentFragment.getClass().getName()
-                                        : mParentFragmentId)
-                                + " must implement "
-                                + DialogCreatable.class.getName());
+                                KEY_PARENT_FRAGMENT_ID + " must implement "
+                                        + DialogCreatable.class.getName());
                     }
                 }
                 // This dialog fragment could be created from non-SettingsPreferenceFragment
