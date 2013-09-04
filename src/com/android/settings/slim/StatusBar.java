@@ -61,6 +61,10 @@ private CheckBoxPreference mStatusBarTraffic;
  private ColorPickerPreference mTrafficColorPicker;
 
 
+int defaultColor;
+int intColor;
+String hexColor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

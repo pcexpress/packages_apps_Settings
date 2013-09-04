@@ -71,7 +71,8 @@ private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
  private Preference mHaloOptions;
     private String mCustomLabelText = null;
     private int newDensityValue;
-
+    private ListPreference mListViewAnimation;
+private ListPreference mListViewInterpolator; 
     DensityChanger densityFragment;
 
     @Override
