@@ -4639,6 +4639,9 @@
 <!-- Vibration Multiplier -->
     <string name="vibrator_multiplier_title">Vibration multiplier</string>
 
+<!-- Weather tile -->
+<string name="title_tile_weather">Weather</string> 
+
 
 
 </resources>
