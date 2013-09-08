@@ -65,7 +65,6 @@ public class QuickSettingsUtil {
     public static final String TILE_CAMERA = "toggleCamera";
     public static final String TILE_CUSTOMSHORTCUT = "toggleCustomShortcut";
     public static final String TILE_MUSIC = "toggleMusic";
-public static final String TILE_HALO = "toggleHalo";
 
     private static final String TILE_DELIMITER = "|";
     protected static ArrayList<String> TILES_DEFAULT = new ArrayList<String>();
@@ -178,10 +177,7 @@ public static final String TILE_HALO = "toggleHalo";
         TILES.put(TILE_WIFIAP, new QuickSettingsUtil.TileInfo(
                 TILE_WIFIAP, R.string.title_tile_wifiap,
                 "com.android.systemui:drawable/ic_qs_wifi_ap_neutral", true));
-	TILES.put(TILE_HALO, new QuickSettingsUtil.TileInfo(
-                TILE_HALO, R.string.title_tile_halo,
-                "com.android.systemui:drawable/ic_notify_halo_normal", true));
-
+	
 // These toggles are not available yet.  Comment out for now
 //        TILES.put(TILE_WIMAX, new QuickSettingsUtil.TileInfo(
 //                TILE_WIMAX, R.string.title_tile_wimax,
