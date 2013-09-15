@@ -49,6 +49,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
     private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic"; 
  private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+ private static final String STATUS_ICON_COLOR_BEHAVIOR = "status_icon_color_behavior";
+    private static final String STATUS_ICON_COLOR = "status_icon_color";
+
    
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -60,7 +63,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarQuickPeek;
 private CheckBoxPreference mStatusBarTraffic;
  private ColorPickerPreference mTrafficColorPicker;
-
+ private CheckBoxPreference mStatusIconBehavior;
+    private ColorPickerPreference mIconColor; 
 
 int defaultColor;
 int intColor;
@@ -115,6 +119,13 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
                 Settings.System.STATUSBAR_PEEK, 0) == 1));
         mStatusBarQuickPeek.setOnPreferenceChangeListener(this);
 
+	 mStatusIconBehavior = (CheckBoxPreference) prefSet.findPreference(STATUS_ICON_COLOR_BEHAVIOR);
+        mStatusIconBehavior.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.ICON_COLOR_BEHAVIOR, 0) == 1);
+
+        mIconColor = (ColorPickerPreference) findPreference(STATUS_ICON_COLOR);
+        mIconColor.setOnPreferenceChangeListener(this); 
+
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         if (Utils.isWifiOnly(getActivity())) {
@@ -167,7 +178,16 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
               Settings.System.STATUS_BAR_TRAFFIC_COLOR, intHex);
           return true;
       
-        }
+        } else if (preference == mIconColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_ICON_COLOR, intHex);
+            CMDProcessor.restartSystemUI();
+            return true;
+	} 
         return false;
     }
 
@@ -181,7 +201,14 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
                     Settings.System.STATUS_BAR_TRAFFIC, value ? 1 : 0);
             return true;
 
-        }	return super.onPreferenceTreeClick(preferenceScreen, preference);
+	 } else if (preference == mStatusIconBehavior) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.ICON_COLOR_BEHAVIOR,
+                    mStatusIconBehavior.isChecked() ? 1 : 0);
+            CMDProcessor.restartSystemUI();
+         } 
+
+        	return super.onPreferenceTreeClick(preferenceScreen, preference);
  
     }
 
