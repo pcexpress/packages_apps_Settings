@@ -205,7 +205,7 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.ICON_COLOR_BEHAVIOR,
                     mStatusIconBehavior.isChecked() ? 1 : 0);
-            CMDProcessor.restartSystemUI();
+            Helpers.restartSystemUI();
          } 
 
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
