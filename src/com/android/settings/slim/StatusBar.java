@@ -31,7 +31,7 @@ import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 
 import com.android.settings.R;
-import com.android.settings.util.CMDProcessor;
+import com.android.settings.util.Helpers;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
@@ -185,7 +185,7 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_ICON_COLOR, intHex);
-            CMDProcessor.restartSystemUI();
+            Helpers.restartSystemUI();
             return true;
 	} 
         return false;
