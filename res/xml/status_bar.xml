@@ -45,18 +45,6 @@
             android:entries="@array/entries_status_bar_signal"
             android:entryValues="@array/values_status_bar_signal" />
 
- <CheckBoxPreference
-            android:key="status_icon_color_behavior"
-            android:title="@string/icon_color_behavior_title"
-            android:summaryOn="@string/icon_color_behavior_summary"
-            android:defaultValue="false" />
-
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="status_icon_color"
-            android:title="null"
-            android:summary="@string/status_icon_color_summary"
-            android:defaultValue="0xFF33B5E5" /> 
-
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -4639,10 +4639,5 @@
 <!-- Vibration Multiplier -->
     <string name="vibrator_multiplier_title">Vibration multiplier</string>
 
-    <!-- status bar icon color -->
-    <string name="icon_color_behavior_title">Custom Icon Color</string>
-    <string name="icon_color_behavior_summary">Apply color filter to system icons</string>
-    <string name="status_icon_color_summary">Choose Custom Color</string> 
-
 
 </resources>
