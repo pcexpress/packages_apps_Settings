@@ -1586,6 +1586,18 @@
         <activity android:name=".slim.NotificationDrawerStyle" />
         <activity android:name=".ApnEditor" />
 
+
+	 <activity
+            android:name=".slim.AnimationControls"
+            android:label="@string/title_animation_controls">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.slim.settings.SHORTCUT" />
+            </intent-filter>
+        </activity> 
+
         <activity
             android:name=".slim.DensityChanger"
             android:label="@string/lcd_density_wizard" >
