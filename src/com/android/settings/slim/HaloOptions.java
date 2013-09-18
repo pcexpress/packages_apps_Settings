@@ -216,11 +216,13 @@ public class HaloOptions extends SettingsPreferenceFragment
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mHaloState) {
             boolean state = Integer.valueOf((String) newValue) == 1;
+	    int index = mHaloState.findIndexOfValue((String) Value); 
             try {
                 mNotificationManager.setHaloPolicyBlack(state);
             } catch (android.os.RemoteException ex) {
                 // System dead
             }
+	    mHaloState.setSummary(mHaloState.getEntries()[index]);
             return true;
         } else if (preference == mHaloSize) {
             float haloSize = Float.valueOf((String) newValue);
@@ -263,15 +265,19 @@ public class HaloOptions extends SettingsPreferenceFragment
                     Settings.System.HALO_BUBBLE_TEXT_COLOR, intHex);
             return true;
         }  else if (preference == mHaloMsgAnimate) {
-            int haloMsgAnimation = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            int haloMsgAnimation = Integer.valueOf((String) Value);
+            int index = mHaloMsgAnimate.findIndexOfValue((String) Value); 
+	    Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_MSGBOX_ANIMATION, haloMsgAnimation);
+	    mHaloMsgAnimate.setSummary(mHaloMsgAnimate.getEntries()[index]); 
             return true;
         } else if (preference == mHaloNotifyCount) {
-            int haloNotifyCount = Integer.valueOf((String) newValue);
+            int haloNotifyCount = Integer.valueOf((String) Value);
+            int index = mHaloNotifyCount.findIndexOfValue((String) Value); 
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_NOTIFY_COUNT, haloNotifyCount);
-            return true;
+	    mHaloNotifyCount.setSummary(mHaloNotifyCount.getEntries()[index]);
+	    return true;
 	} 
         return false;
     }
