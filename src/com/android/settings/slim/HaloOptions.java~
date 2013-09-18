@@ -265,15 +265,15 @@ public class HaloOptions extends SettingsPreferenceFragment
                     Settings.System.HALO_BUBBLE_TEXT_COLOR, intHex);
             return true;
         }  else if (preference == mHaloMsgAnimate) {
-            int haloMsgAnimation = Integer.valueOf((String) newValue);
-            int index = mHaloMsgAnimate.findIndexOfValue((String) newValue); 
+            int haloMsgAnimation = Integer.valueOf((String) Value);
+            int index = mHaloMsgAnimate.findIndexOfValue((String) Value); 
 	    Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_MSGBOX_ANIMATION, haloMsgAnimation);
 	    mHaloMsgAnimate.setSummary(mHaloMsgAnimate.getEntries()[index]); 
             return true;
         } else if (preference == mHaloNotifyCount) {
-            int haloNotifyCount = Integer.valueOf((String) newValue);
-            int index = mHaloNotifyCount.findIndexOfValue((String) newValue); 
+            int haloNotifyCount = Integer.valueOf((String) Value);
+            int index = mHaloNotifyCount.findIndexOfValue((String) Value); 
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.HALO_NOTIFY_COUNT, haloNotifyCount);
 	    mHaloNotifyCount.setSummary(mHaloNotifyCount.getEntries()[index]);
