@@ -1856,7 +1856,17 @@
                 android:label="@string/gadget_title"
                 android:exported="false"
                 android:enabled="@bool/has_powercontrol_widget">
+
+        <activity
+            android:name=".fragments.Weather"
+            android:label="@string/title_weather" >
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+            </intent-filter>
+        </activity>
+       
+        <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
                 <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
@@ -1882,6 +1892,14 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".weather.WeatherReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.aokp.romcontrol.INTENT_WEATHER_REQUEST" />
+            </intent-filter>
+        </receiver>
+
 
         <!-- Watch for ContactsContract.Profile changes and update the user's photo.  -->
         <receiver android:name=".users.ProfileUpdateReceiver">
@@ -1889,6 +1907,15 @@
                 <action android:name="android.provider.Contacts.PROFILE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.BootService"/>
+        <service android:name=".service.HeadphoneService"/>
+        <service android:name=".service.FlipService"/>
+        <service
+            android:name=".service.ExternalCommandService"
+            android:exported="false"/>
+        <service android:name=".weather.WeatherRefreshService" />
+        <service android:name=".weather.WeatherService" />
 
     </application>
 </manifest>
