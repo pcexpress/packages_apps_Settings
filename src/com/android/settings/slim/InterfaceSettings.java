@@ -68,7 +68,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private Preference mAnimationControls;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
- private Preference mHaloOptions;
+    private Preference mHaloOptions;
     private String mCustomLabelText = null;
     private int newDensityValue;
     DensityChanger densityFragment;

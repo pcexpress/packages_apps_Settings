@@ -47,6 +47,12 @@
             android:key="lockscreen_alpha"
             android:title="@string/lockscreen_alpha_title" />
 
+	<PreferenceScreen
+             android:key="active_display"
+             android:fragment="com.android.settings.slim.fragments.ActiveDisplay"
+             android:title="@string/active_display_title"
+             android:summary="@string/active_display_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

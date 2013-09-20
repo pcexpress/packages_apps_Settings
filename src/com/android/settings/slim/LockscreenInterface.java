@@ -64,6 +64,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     private static final String PREF_LOCKSCREEN_AUTO_ROTATE = "lockscreen_auto_rotate";
     private static final String PREF_LOCKSCREEN_EIGHT_TARGETS = "lockscreen_eight_targets";
     private static final String PREF_LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
+    private static final String PREF_ACTIVE_DISPLAY = "active_display";
 
     private static final String KEY_BACKGROUND_PREF = "lockscreen_background";
     private static final String KEY_BACKGROUND_ALPHA_PREF = "lockscreen_alpha";
@@ -76,6 +77,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     private CheckBoxPreference mLockscreenAutoRotate;
     private CheckBoxPreference mLockscreenEightTargets;
     private Preference mShortcuts;
+    private Preference mActiveDisplay;
 
     private boolean mIsScreenLarge;
 
@@ -113,6 +115,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
         prefs = getPreferenceScreen();
 
         mAdditionalOptions = (PreferenceCategory) prefs.findPreference(KEY_ADDITIONAL_OPTIONS);
+        mActiveDisplay = findPreference(PREF_ACTIVE_DISPLAY);
 
         mCustomBackground = (ListPreference) findPreference(KEY_BACKGROUND_PREF);
         mCustomBackground.setOnPreferenceChangeListener(this);
