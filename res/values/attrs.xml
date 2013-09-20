@@ -143,10 +143,4 @@
         <attr name="unitsRight" format="string" />
     </declare-styleable>
 
-   <declare-styleable name="ActiveSeekPreference">
-        <attr name="min" format="integer" />
-        <attr name="unitsLeft" format="string" />
-        <attr name="unitsRight" format="string" />
-    </declare-styleable>
-
 </resources>
