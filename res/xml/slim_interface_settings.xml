@@ -58,7 +58,7 @@
 
     <PreferenceScreen
         android:key="animation_controls"
-        android:fragment="com.slim.settings.AnimationControls"
+        android:fragment="com.android.settings.slim.AnimationControls"
         android:title="@string/title_animation_controls"
         /> 
         
