@@ -77,6 +77,23 @@ public class Helpers {
         return true;
     }
 
+ public static boolean isNetworkAvailable(final Context c) {
+        boolean state = false;
+        if (c != null) {
+            ConnectivityManager cm = (ConnectivityManager) c
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()) {
+                Log.i(TAG, "The device currently has data connectivity");
+                state = true;
+            } else {
+                Log.i(TAG, "The device does not currently have data connectivity");
+                state = false;
+            }
+        }
+        return state;
+    }
+
     public static String[] getMounts(final String path)
     {
         try

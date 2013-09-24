@@ -49,6 +49,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
     private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic"; 
     private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+    private static final String STATUS_WEATHER = "status_weather";
  
    
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
@@ -61,7 +62,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarQuickPeek;
     private CheckBoxPreference mStatusBarTraffic;
     private ColorPickerPreference mTrafficColorPicker;
- 
+    private Preference mWeather;
      int defaultColor;
     int intColor;
     String hexColor;
@@ -116,6 +117,8 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
         mStatusBarQuickPeek.setOnPreferenceChangeListener(this);
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
+
+	mWeather = findPreference(STATUS_WEATHER);
 
         if (Utils.isWifiOnly(getActivity())) {
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
