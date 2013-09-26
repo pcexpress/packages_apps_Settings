@@ -32,6 +32,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.widgets.ActiveSeekPreference;
 
 import static android.hardware.Sensor.TYPE_PROXIMITY;
+import static android.hardware.Sensor.TYPE_LIGHT; 
 
 public class ActiveDisplay extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
@@ -45,6 +46,8 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private static final String KEY_SHOW_DATE = "ad_show_date";
     private static final String KEY_SHOW_AMPM = "ad_show_ampm";
     private static final String KEY_BRIGHTNESS = "ad_brightness";
+    private static final String KEY_SUNLIGHT_MODE = "ad_sunlight_mode";
+
 
     private SwitchPreference mEnabledPref;
     private ActiveSeekPreference mBrightnessLevel;
@@ -54,6 +57,8 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private CheckBoxPreference mAllNotificationsPref;
     private CheckBoxPreference mPocketModePref;
     private ListPreference mRedisplayPref;
+    private CheckBoxPreference mSunlightModePref;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +106,13 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
         mBrightnessLevel.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, 100));
         mBrightnessLevel.setOnPreferenceChangeListener(this);
+
+	mSunlightModePref = (CheckBoxPreference) findPreference(KEY_SUNLIGHT_MODE);
+        mSunlightModePref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_SUNLIGHT_MODE, 0) == 1));
+        if (!hasLightSensor()) {
+            getPreferenceScreen().removePreference(mSunlightModePref);
+        } 
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -141,6 +153,11 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_POCKET_MODE,
                     value ? 1 : 0);
+	} else if (preference == mSunlightModePref) {
+            value = mSunlightModePref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.ACTIVE_DISPLAY_SUNLIGHT_MODE,
+                    value ? 1 : 0); 
         } else if (preference == mShowDatePref) {
             value = mShowDatePref.isChecked();
             Settings.System.putInt(getContentResolver(),
@@ -168,4 +185,9 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
         SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         return sm.getDefaultSensor(TYPE_PROXIMITY) != null;
     }
+
+    private boolean hasLightSensor() {
+        SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        return sm.getDefaultSensor(TYPE_LIGHT) != null;
+    } 
 }
