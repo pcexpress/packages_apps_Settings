@@ -2806,7 +2806,14 @@
     <string name="active_display_summary">Active display customizations</string>
     <string name="ad_sunlight_mode_title">Sunlight mode</string>
     <string name="ad_sunlight_mode_summary">Invert the colors when in areas with bright light such as direct sunlight.</string>
-     
+    <string name="ad_timeout_title">Display timeout</string>
+    <string name="ad_timeout_3s">3 seconds</string>
+    <string name="ad_timeout_5s">5 seconds</string>
+    <string name="ad_timeout_8s">8 seconds</string>
+    <string name="ad_timeout_10s">10 seconds</string>
+    <string name="ad_timeout_15s">15 seconds</string>
+    <string name="ad_timeout_25s">25 seconds</string>
+ 
 
     <!-- App Ops Settings --> <skip />
     <!-- [CHAR LIMIT=NONE] App ops settings title, on main settings screen. If clicked, the user is taken to a settings screen for app operations -->

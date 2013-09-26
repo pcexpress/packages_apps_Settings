@@ -47,7 +47,8 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private static final String KEY_SHOW_AMPM = "ad_show_ampm";
     private static final String KEY_BRIGHTNESS = "ad_brightness";
     private static final String KEY_SUNLIGHT_MODE = "ad_sunlight_mode";
-
+    private static final String KEY_TIMEOUT = "ad_timeout";
+  
 
     private SwitchPreference mEnabledPref;
     private ActiveSeekPreference mBrightnessLevel;
@@ -58,7 +59,7 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private CheckBoxPreference mPocketModePref;
     private ListPreference mRedisplayPref;
     private CheckBoxPreference mSunlightModePref;
-
+    private ListPreference mDisplayTimeout; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,14 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
         if (!hasLightSensor()) {
             getPreferenceScreen().removePreference(mSunlightModePref);
         } 
+
+	mDisplayTimeout = (ListPreference) prefSet.findPreference(KEY_TIMEOUT);
+        mDisplayTimeout.setOnPreferenceChangeListener(this);
+        timeout = Settings.System.getLong(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_TIMEOUT, 8000L);
+        mDisplayTimeout.setValue(String.valueOf(timeout));
+        updateTimeoutSummary(timeout);
+ 
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -130,7 +139,11 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, brightness);
             return true;
-        }
+        } else if (preference == mDisplayTimeout) {
+            long timeout = Integer.valueOf((String) newValue);
+            updateTimeoutSummary(timeout);
+            return true;
+        } 
         return false;
     }
 
@@ -189,5 +202,14 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private boolean hasLightSensor() {
         SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         return sm.getDefaultSensor(TYPE_LIGHT) != null;
+    } 
+
+    private void updateTimeoutSummary(long value) {
+        try {
+            mDisplayTimeout.setSummary(mDisplayTimeout.getEntries()[mDisplayTimeout.findIndexOfValue("" + value)]);
+            Settings.System.putLong(getContentResolver(),
+                    Settings.System.ACTIVE_DISPLAY_TIMEOUT, value);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
     } 
 }
