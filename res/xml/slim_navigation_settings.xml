@@ -33,7 +33,7 @@
         android:key="app_sidebar"
         android:fragment="com.android.settings.slim.AppSidebar"
         android:title="@string/app_sidebar_title"
-        android:summary="@string/app_sidebar_summary" /> 
+         /> 
 
     <PreferenceScreen
         android:key="pie_settings"

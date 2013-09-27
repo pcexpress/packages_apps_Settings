@@ -4716,42 +4716,40 @@
     <string name="summary_animation_no_override">Prevent apps from overriding transitions.</string> 
     <string name="animation_duration_default">Default</string> 
 
-    <!-- App sidebar -->
-    <string name="app_sidebar_title">Appbar</string>
-    <string name="app_sidebar_enable_title">Enable Appbar</string>
-    <string name="app_sidebar_summary">Customize your app sidebar</string>
-    <string name="app_sidebar_enable_summaryOn">\@appbar is enabled</string>
-    <string name="app_sidebar_enable_summaryOff">\@appbar is disabled</string>
-    <string name="app_sidebar_setup_items_title">Setup Appbar content</string>
-    <string name="app_sidebar_setup_items_summary">Add, remove, and position items in the @ppbar</string>
-    <string name="app_sidebar_transparency_title">Appbar transparency</string>
-    <string name="app_sidebar_transparency_summary">Adjust the Appbar transparency level</string>
-    <string name="app_sidebar_position_title">Appbar position</string>
-    <string name="app_sidebar_position_summary">Position the Appbar on the left or right side of the screen</string>
-    <string name="app_sidebar_position_left">Left</string>
-    <string name="app_sidebar_position_right">Right</string>
-    <string name="app_sidebar_hide_labels_title">Hide icon labels</string>
-    <string name="app_sidebar_hide_labels_summary">Hide Appbar icon labels</string>
-    <string name="app_sidebar_top">Top</string>
-    <string name="app_sidebar_middle">Middle</string>
-    <string name="app_sidebar_bottom">Bottom</string>
-    <string name="app_sidebar_small">Small</string>
-    <string name="app_sidebar_medium">Medium</string>
-    <string name="app_sidebar_large">Large</string>
-    <string name="tab_category">Visible Tab</string>
-    <string name="use_tab_title">Display tab</string>
-    <string name="use_tab_summary">Display a visible tab on the side which will display the \@appbar when touched.</string>
-    <string name="tab_position_title">Tab location</string>
-    <string name="tab_position_summary">Display the tab on the top, middle, or bottom on the side of the screen.</string>
-    <string name="tab_size_title">Tab size</string>
-    <string name="tab_size_summary">Change the size of the visible tab.</string>
-    <string name="trigger_category">Trigger region</string>
-    <string name="trigger_width_title">Trigger width</string>
-    <string name="trigger_width_summary">Adjust the width of the trigger area</string>
-    <string name="trigger_top_title">Trigger position</string>
-    <string name="trigger_top_summary">Adjust the vertical postion of the trigger area</string>
-    <string name="trigger_bottom_title">Trigger height</string>
-    <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>  
+     <!-- App sidebar -->
+    <string name="app_sidebar_title">App sidebar</string>
+    <string name="app_sidebar_enable_title">Enable sidebar</string>
+    <string name="app_sidebar_sort_type_title">Sidebar sort order</string>
+    <string name="app_sidebar_transparency_title">Sidebar transparency</string>
+    <string name="app_sidebar_size_title">Sidebar size</string>
+    <string name="app_sidebar_exclude_list_title">Excluded apps</string>
+    <string name="app_sidebar_exclude_list_summary">Select applications to exclude from the sidebar</string>
+    <string name="excluded_apps_title">Excluded apps</string>
+    <string name="menu_excluded_apps_delete">Reset</string>
+
+    <string name="edge_swipe_title">Gesture navigation</string>
+    <string name="edge_swipe_right_title">Zone 3 Action</string>
+    <string name="edge_swipe_left_title">Zone 1 Action</string>
+    <string name="edge_swipe_top_title">Zone 2 Action</string>
+    <string name="edge_swipe_bottom_title">Zone 4 Action</string>
+    <string name="edge_swipe_move_title">Capture touch events</string>
+    <string name="edge_swipe_move_summary">Stop touches in zones from reaching the application</string>
+    <string name="edge_swipe_none">No action</string>
+    <string name="edge_swipe_expand">Expand notifications</string>
+    <string name="edge_swipe_recents">Recent apps</string>
+    <string name="edge_swipe_hide">Toggle status bar</string>
+    <string name="edge_swipe_expand_qs">Expand quick settings</string>
+    <string name="edge_swipe_back">Back</string>
+    <string name="edge_swipe_app_switch">Quick app switch</string>
+    <string name="edge_swipe_home">Home</string>
+    <string name="edge_swipe_menu">Menu</string>
+    <string name="edge_swipe_app">Launch application ...</string>
+    <string name="edge_swipe_blacklist_title">Gesture app blacklist</string>
+    <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
+    <string name="gesture_tap">Single tap</string>
+    <string name="gesture_long_press">Long press</string>
+    <string name="gesture_swipe">Swipe out of zone</string>
+    <string name="gesture_swipe_distance">Swipe distance</string>
 
    <!-- Lock Screen Shortcuts -->
     <string name="lock_screen_title">Lock screen</string>

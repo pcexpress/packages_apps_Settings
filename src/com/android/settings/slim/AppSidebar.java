@@ -1,30 +1,31 @@
 /*
- * Copyright (C) 2012 CyanogenMod
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright (C) 2012 CyanogenMod
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 package com.android.settings.slim;
 
-import android.content.ComponentName;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -34,21 +35,16 @@ public class AppSidebar extends SettingsPreferenceFragment implements
     private static final String TAG = "PowerMenu";
 
     private static final String KEY_ENABLED = "sidebar_enable";
+    private static final String KEY_SORT_TYPE = "sidebar_sort_type";
     private static final String KEY_TRANSPARENCY = "sidebar_transparency";
-    private static final String KEY_SETUP_ITEMS = "sidebar_setup_items";
-    private static final String KEY_POSITION = "sidebar_position";
-    private static final String KEY_HIDE_LABELS = "sidebar_hide_labels";
-    private static final String KEY_TRIGGER_WIDTH = "trigger_width";
-    private static final String KEY_TRIGGER_TOP = "trigger_top";
-    private static final String KEY_TRIGGER_BOTTOM = "trigger_bottom";
+    private static final String KEY_SIZE = "sidebar_size";
+    private static final String KEY_EXCLUDED = "sidebar_exclude_list";
 
-    private SwitchPreference mEnabledPref;
+    private CheckBoxPreference mEnabledPref;
+    private ListPreference mSortTypePref;
+    private ListPreference mSizePref;
     private SeekBarPreference mTransparencyPref;
-    private ListPreference mPositionPref;
-    private CheckBoxPreference mHideLabelsPref;
-    private SeekBarPreference mTriggerWidthPref;
-    private SeekBarPreference mTriggerTopPref;
-    private SeekBarPreference mTriggerBottomPref;
+    private Preference mExcludedApps;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,75 +52,48 @@ public class AppSidebar extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.app_sidebar_settings);
 
-        mEnabledPref = (SwitchPreference) findPreference(KEY_ENABLED);
+        mEnabledPref = (CheckBoxPreference) findPreference(KEY_ENABLED);
         mEnabledPref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_ENABLED, 0) == 1));
-        mEnabledPref.setOnPreferenceChangeListener(this);
-
-        mHideLabelsPref = (CheckBoxPreference) findPreference(KEY_HIDE_LABELS);
-        mHideLabelsPref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_DISABLE_LABELS, 0) == 1));
+                Settings.System.APP_SIDE_BAR_ENABLED, 0) == 1));
 
         PreferenceScreen prefSet = getPreferenceScreen();
-        mPositionPref = (ListPreference) prefSet.findPreference(KEY_POSITION);
-        mPositionPref.setOnPreferenceChangeListener(this);
-        int position = Settings.System.getInt(getContentResolver(), Settings.System.APP_SIDEBAR_POSITION, 0);
-        mPositionPref.setValue(String.valueOf(position));
-        updatePositionSummary(position);
+        mSortTypePref = (ListPreference) prefSet.findPreference(KEY_SORT_TYPE);
+        mSortTypePref.setOnPreferenceChangeListener(this);
+        int sortyTypeValue = Settings.System.getInt(getContentResolver(), Settings.System.APP_SIDEBAR_SORT_TYPE, 0);
+        mSortTypePref.setValue(String.valueOf(sortyTypeValue));
+        updateSortTypeSummary(sortyTypeValue);
+
+        mSizePref = (ListPreference) prefSet.findPreference(KEY_SIZE);
+        mSizePref.setOnPreferenceChangeListener(this);
+        int size = Settings.System.getInt(getContentResolver(), Settings.System.APP_SIDEBAR_ITEM_SIZE, 100);
+        mSizePref.setValue(String.valueOf(size));
+        updateSizeSummary(size);
 
         mTransparencyPref = (SeekBarPreference) findPreference(KEY_TRANSPARENCY);
         mTransparencyPref.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.APP_SIDEBAR_TRANSPARENCY, 0));
         mTransparencyPref.setOnPreferenceChangeListener(this);
 
-        mTriggerWidthPref = (SeekBarPreference) findPreference(KEY_TRIGGER_WIDTH);
-        mTriggerWidthPref.setValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_TRIGGER_WIDTH, 10));
-        mTriggerWidthPref.setOnPreferenceChangeListener(this);
-
-        mTriggerTopPref = (SeekBarPreference) findPreference(KEY_TRIGGER_TOP);
-        mTriggerTopPref.setValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_TRIGGER_TOP, 0));
-        mTriggerTopPref.setOnPreferenceChangeListener(this);
-
-        mTriggerBottomPref = (SeekBarPreference) findPreference(KEY_TRIGGER_BOTTOM);
-        mTriggerBottomPref.setValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_TRIGGER_HEIGHT, 100));
-        mTriggerBottomPref.setOnPreferenceChangeListener(this);
-
-        findPreference(KEY_SETUP_ITEMS).setOnPreferenceClickListener(this);
+        findPreference(KEY_EXCLUDED).setOnPreferenceClickListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mTransparencyPref) {
+        if (preference == mSortTypePref) {
+            int sortyTypeValue = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.APP_SIDEBAR_SORT_TYPE, sortyTypeValue);
+            updateSortTypeSummary(sortyTypeValue);
+            return true;
+        } else if (preference == mTransparencyPref) {
             int transparency = ((Integer)newValue).intValue();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.APP_SIDEBAR_TRANSPARENCY, transparency);
             return true;
-        } else if (preference == mTriggerWidthPref) {
-            int width = ((Integer)newValue).intValue();
+        } else if (preference == mSizePref) {
+            int size = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.APP_SIDEBAR_TRIGGER_WIDTH, width);
-            return true;
-        } else if (preference == mTriggerTopPref) {
-            int top = ((Integer)newValue).intValue();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.APP_SIDEBAR_TRIGGER_TOP, top);
-            return true;
-        } else if (preference == mTriggerBottomPref) {
-            int bottom = ((Integer)newValue).intValue();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.APP_SIDEBAR_TRIGGER_HEIGHT, bottom);
-            return true;
-        } else if (preference == mPositionPref) {
-            int position = Integer.valueOf((String) newValue);
-            updatePositionSummary(position);
-            return true;
-        } else if (preference == mEnabledPref) {
-            boolean value = ((Boolean)newValue).booleanValue();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.APP_SIDEBAR_ENABLED,
-                    value ? 1 : 0);
+                    Settings.System.APP_SIDEBAR_ITEM_SIZE, size);
+            updateSizeSummary(size);
             return true;
         }
         return false;
@@ -134,10 +103,10 @@ public class AppSidebar extends SettingsPreferenceFragment implements
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
 
-        if (preference == mHideLabelsPref) {
-            value = mHideLabelsPref.isChecked();
+        if (preference == mEnabledPref) {
+            value = mEnabledPref.isChecked();
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.APP_SIDEBAR_DISABLE_LABELS,
+                    Settings.System.APP_SIDE_BAR_ENABLED,
                     value ? 1 : 0);
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -146,36 +115,25 @@ public class AppSidebar extends SettingsPreferenceFragment implements
         return true;
     }
 
+    private void updateSortTypeSummary(int value) {
+        mSortTypePref.setSummary(mSortTypePref.getEntries()[mSortTypePref.findIndexOfValue("" + value)]);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.APP_SIDEBAR_SORT_TYPE, value);
+    }
+
+    private void updateSizeSummary(int value) {
+        mSizePref.setSummary(mSizePref.getEntries()[mSizePref.findIndexOfValue("" + value)]);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.APP_SIDEBAR_ITEM_SIZE, value);
+    }
+
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if(preference.getKey().equals(KEY_SETUP_ITEMS)) {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setComponent(new ComponentName("com.android.systemui",
-                    "com.android.systemui.statusbar.sidebar.SidebarConfigurationActivity"));
+        if(preference.getKey().equals(KEY_EXCLUDED)) {
+            Intent intent = new Intent(getActivity(), ExcludedAppsActivity.class);
             getActivity().startActivity(intent);
             return true;
         }
         return false;
-    }
-
-    private void updatePositionSummary(int value) {
-        mPositionPref.setSummary(mPositionPref.getEntries()[mPositionPref.findIndexOfValue("" + value)]);
-        Settings.System.putInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_POSITION, value);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Settings.System.putInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_SHOW_TRIGGER, 0);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
-        Settings.System.putInt(getContentResolver(),
-                Settings.System.APP_SIDEBAR_SHOW_TRIGGER, 1);
     }
 }
