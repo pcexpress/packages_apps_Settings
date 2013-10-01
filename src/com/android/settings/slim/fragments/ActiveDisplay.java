@@ -48,11 +48,14 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
     private static final String KEY_BRIGHTNESS = "ad_brightness";
     private static final String KEY_SUNLIGHT_MODE = "ad_sunlight_mode";
     private static final String KEY_TIMEOUT = "ad_timeout";
+    private static final String KEY_HIDE_LOW_PRIORITY = "ad_hide_low_priority";
+     
   
 
     private SwitchPreference mEnabledPref;
     private ActiveSeekPreference mBrightnessLevel;
     private CheckBoxPreference mShowTextPref;
+    private CheckBoxPreference mHideLowPriorityPref;
     private CheckBoxPreference mShowDatePref;
     private CheckBoxPreference mShowAmPmPref;
     private CheckBoxPreference mAllNotificationsPref;
@@ -71,6 +74,11 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
         mEnabledPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1));
         mEnabledPref.setOnPreferenceChangeListener(this);
+
+	mHideLowPriorityPref = (CheckBoxPreference) findPreference(KEY_HIDE_LOW_PRIORITY);
+        mHideLowPriorityPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_HIDE_LOW_PRIORITY_NOTIFICATIONS, 0) == 1));
+ 
 
         mShowTextPref = (CheckBoxPreference) findPreference(KEY_SHOW_TEXT);
         mShowTextPref.setChecked((Settings.System.getInt(getContentResolver(),
@@ -165,6 +173,11 @@ public class ActiveDisplay extends SettingsPreferenceFragment implements
             value = mPocketModePref.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_POCKET_MODE,
+                    value ? 1 : 0);
+	} else if (preference == mHideLowPriorityPref) {
+            value = mHideLowPriorityPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.ACTIVE_DISPLAY_HIDE_LOW_PRIORITY_NOTIFICATIONS,
                     value ? 1 : 0);
 	} else if (preference == mSunlightModePref) {
             value = mSunlightModePref.isChecked();

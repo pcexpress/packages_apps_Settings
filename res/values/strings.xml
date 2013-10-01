@@ -2813,6 +2813,8 @@
     <string name="ad_timeout_10s">10 seconds</string>
     <string name="ad_timeout_15s">15 seconds</string>
     <string name="ad_timeout_25s">25 seconds</string>
+    <string name="ad_hide_low_priority_title">Hide low priority</string>
+    <string name="ad_hide_low_priority_summary">Hide low priority notifications such as those from Google Now.</string> 
  
 
     <!-- App Ops Settings --> <skip />
