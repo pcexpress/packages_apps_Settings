@@ -1585,7 +1585,6 @@
         <activity android:name=".slim.quicksettings.QuickSettingsTilesStyle" />
         <activity android:name=".slim.NotificationDrawerStyle" />
         <activity android:name=".ApnEditor" />
-	<activity android:name=".slim.ExcludedAppsActivity" />
 
 	 <activity
             android:name=".slim.AnimationControls"

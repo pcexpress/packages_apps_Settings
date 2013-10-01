@@ -4718,17 +4718,6 @@
     <string name="summary_animation_no_override">Prevent apps from overriding transitions.</string> 
     <string name="animation_duration_default">Default</string> 
 
-     <!-- App sidebar -->
-    <string name="app_sidebar_title">App sidebar</string>
-    <string name="app_sidebar_enable_title">Enable sidebar</string>
-    <string name="app_sidebar_sort_type_title">Sidebar sort order</string>
-    <string name="app_sidebar_transparency_title">Sidebar transparency</string>
-    <string name="app_sidebar_size_title">Sidebar size</string>
-    <string name="app_sidebar_exclude_list_title">Excluded apps</string>
-    <string name="app_sidebar_exclude_list_summary">Select applications to exclude from the sidebar</string>
-    <string name="excluded_apps_title">Excluded apps</string>
-    <string name="menu_excluded_apps_delete">Reset</string>
-
     <string name="edge_swipe_title">Gesture navigation</string>
     <string name="edge_swipe_right_title">Zone 3 Action</string>
     <string name="edge_swipe_left_title">Zone 1 Action</string>
