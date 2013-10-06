@@ -50,7 +50,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_TRAFFIC = "status_bar_traffic"; 
     private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
     private static final String STATUS_WEATHER = "status_weather";
- 
+    private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label"; 
    
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -63,7 +63,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarTraffic;
     private ColorPickerPreference mTrafficColorPicker;
     private Preference mWeather;
-     int defaultColor;
+    private CheckBoxPreference mStatusBarCarrierLabel; 
+    int defaultColor;
     int intColor;
     String hexColor;
 
@@ -76,10 +77,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         PreferenceScreen prefSet = getPreferenceScreen();
 
 	mStatusBarTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC); 
-mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+	mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                Settings.System.STATUS_BAR_TRAFFIC, 1) == 1)); 
 
- mTrafficColorPicker = (ColorPickerPreference) findPreference("status_bar_traffic_color");
+ 	mTrafficColorPicker = (ColorPickerPreference) findPreference("status_bar_traffic_color");
         mTrafficColorPicker.setOnPreferenceChangeListener(this);
         defaultColor = getResources().getColor(
             com.android.internal.R.color.holo_blue_light);
@@ -101,7 +102,7 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
         mStatusBarBrightnessControl.setOnPreferenceChangeListener(this);
 
-     mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
+        mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
         mStatusBarBrightnessChangedObserver.startObserving();
 
         mStatusBarAutoHide = (ListPreference) prefSet.findPreference(STATUS_BAR_AUTO_HIDE);
@@ -119,6 +120,10 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
 	mWeather = findPreference(STATUS_WEATHER);
+ 	
+	mStatusBarCarrierLabel = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER_LABEL);
+        mStatusBarCarrierLabel.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER, 0) == 1); 
 
         if (Utils.isWifiOnly(getActivity())) {
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
@@ -182,8 +187,13 @@ mStatusBarTraffic.setChecked((Settings.System.getInt(getActivity().getApplicatio
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_TRAFFIC, value ? 1 : 0);
             return true;
-         } 
-
+         } else if (preference == mStatusBarCarrierLabel) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER,
+                    ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
+            Helpers.restartSystemUI();
+            return true; 
+	 }
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
  
     }
