@@ -191,7 +191,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER,
                     ((CheckBoxPreference)preference).isChecked() ? 1 : 0);
-            Helpers.restartSystemUI();
+           // Helpers.restartSystemUI();
             return true; 
 	 }
         	return super.onPreferenceTreeClick(preferenceScreen, preference);
