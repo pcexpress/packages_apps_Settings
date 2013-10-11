@@ -1,9 +1,9 @@
 
-package com.aokp.romcontrol.weather;
+package com.android.settings.aokp.romcontrol.weather;
 
 import android.content.Context;
 
-import com.aokp.romcontrol.R;
+import com.android.settings.R;
 
 public class WeatherInfo {
 

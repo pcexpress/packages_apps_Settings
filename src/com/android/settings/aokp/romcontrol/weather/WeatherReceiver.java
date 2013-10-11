@@ -1,5 +1,5 @@
 
-package com.aokp.romcontrol.weather;
+package com.android.settings.aokp.romcontrol.weather;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

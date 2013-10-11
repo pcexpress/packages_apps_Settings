@@ -47,7 +47,7 @@
 
 	<PreferenceScreen
 	    android:id="@+id/weather"
-            android:fragment="com.aokp.romcontrol.fragments.Weather"
+            android:fragment="com.android.settings.aokp.romcontrol.Weather"
             android:title="@string/weather"
             android:summary="@string/header_summary_weather"/> 
 

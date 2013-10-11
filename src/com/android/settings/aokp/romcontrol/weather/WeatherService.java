@@ -1,5 +1,5 @@
 
-package com.aokp.romcontrol.weather;
+package com.android.settings.aokp.romcontrol.weather;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
@@ -14,8 +14,8 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.aokp.romcontrol.R;
-import com.aokp.romcontrol.util.Helpers;
+import com.android.settings.R;
+import com.android.settings.util.Helpers;
 
 import org.w3c.dom.Document;
 
@@ -28,11 +28,11 @@ public class WeatherService extends IntentService {
 
     public static final String PREFS_NAME = "WeatherServicePreferences";
 
-    public static final String INTENT_WEATHER_REQUEST = "com.aokp.romcontrol.INTENT_WEATHER_REQUEST";
-    public static final String INTENT_WEATHER_UPDATE = "com.aokp.romcontrol.INTENT_WEATHER_UPDATE";
-    public static final String INTENT_EXTRA_ISMANUAL = "com.aokp.romcontrol.INTENT_EXTRA_ISMANUAL";
-    public static final String INTENT_EXTRA_TYPE = "com.aokp.romcontrol.INTENT_EXTRA_TYPE";
-    public static final String INTENT_EXTRA_NEWLOCATION = "com.aokp.romcontrol.INTENT_EXTRA_NEWLOCATION";
+    public static final String INTENT_WEATHER_REQUEST = "com.android.settings.aokp.romcontrol.INTENT_WEATHER_REQUEST";
+    public static final String INTENT_WEATHER_UPDATE = "com.android.settings.aokp.romcontrol.INTENT_WEATHER_UPDATE";
+    public static final String INTENT_EXTRA_ISMANUAL = "com.android.settings.aokp.romcontrol.INTENT_EXTRA_ISMANUAL";
+    public static final String INTENT_EXTRA_TYPE = "com.android.settings.aokp.romcontrol.INTENT_EXTRA_TYPE";
+    public static final String INTENT_EXTRA_NEWLOCATION = "com.android.settings.aokp.romcontrol.INTENT_EXTRA_NEWLOCATION";
 
     public static final String EXTRA_CITY = "city";
     public static final String EXTRA_FORECAST_DATE = "forecast_date";

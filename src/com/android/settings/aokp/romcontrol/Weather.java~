@@ -1,5 +1,5 @@
 
-package com.aokp.romcontrol.fragments;
+package com.android.settings.aokp.romcontrol;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -30,9 +30,9 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.util.Helpers;
 import com.android.settings.util.ShortcutPickerHelper;
-import com.aokp.romcontrol.weather.WeatherPrefs;
-import com.aokp.romcontrol.weather.WeatherRefreshService;
-import com.aokp.romcontrol.weather.WeatherService;
+import com.android.settings.aokp.romcontrol.weather.WeatherPrefs;
+import com.android.settings.aokp.romcontrol.weather.WeatherRefreshService;
+import com.android.settings.aokp.romcontrol.weather.WeatherService;
 
 public class Weather extends SettingsPreferenceFragment implements
         ShortcutPickerHelper.OnPickListener, Preference.OnPreferenceChangeListener {
@@ -59,7 +59,6 @@ public class Weather extends SettingsPreferenceFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.title_weather);
         addPreferencesFromResource(R.xml.prefs_weather);
 
         prefs = getActivity().getSharedPreferences("weather", Context.MODE_WORLD_WRITEABLE);
@@ -218,18 +217,21 @@ public class Weather extends SettingsPreferenceFragment implements
          } else if (preference == mStatusBarLocation) {
 
              String newVal = (String) newValue;
+	     result = Settings.System.putInt(getActivity().getContentResolver(),
+                     Settings.System.STATUSBAR_WEATHER_STYLE, Integer.parseInt(newVal));
              return Settings.System.putInt(getActivity().getContentResolver(),
                      Settings.System.STATUSBAR_WEATHER_STYLE,
                      Integer.parseInt(newVal));
+	     
 
-        } else if (preference == mWeatherShortClick) {
+        }  else if (preference == mWeatherShortClick) {
 
             mPreference = preference;
             mString = Settings.System.WEATHER_PANEL_SHORTCLICK;
             if (newValue.equals("**app**")) {
              mPicker.pickShortcut();
             } else {
-            result = Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_SHORTCLICK, (String) newValue);
+            Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_SHORTCLICK, (String) newValue);
             mWeatherShortClick.setSummary(getProperSummary(mWeatherShortClick));
             }
 
@@ -240,12 +242,12 @@ public class Weather extends SettingsPreferenceFragment implements
             if (newValue.equals("**app**")) {
              mPicker.pickShortcut();
             } else {
-            result = Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_LONGCLICK, (String) newValue);
+            Settings.System.putString(getContentResolver(), Settings.System.WEATHER_PANEL_LONGCLICK, (String) newValue);
             mWeatherLongClick.setSummary(getProperSummary(mWeatherLongClick));
             }
          }
          return false;
-    }
+    } 
 
     @Override
     public void shortcutPicked(String uri, String friendlyName, Bitmap bmp, boolean isApplication) {

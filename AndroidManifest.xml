@@ -139,10 +139,7 @@
         <receiver
             android:name="com.koushikdutta.superuser.SuReceiver"
             android:permission="android.permission.REPORT_SUPERUSER" />
-
-
-
-
+        
         <!-- Settings -->
 
         <activity android:name="Settings"
@@ -1858,11 +1855,11 @@
                 android:enabled="@bool/has_powercontrol_widget">
 
         <activity
-            android:name=".fragments.Weather"
+            android:name=".aokp.romcontrol.Weather"
             android:label="@string/title_weather" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.aokp.romcontrol.SHORTCUT" />
+                <category android:name="com.android.settings.aokp.romcontrol.SHORTCUT" />
             </intent-filter>
         </activity>
        
@@ -1893,10 +1890,10 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".weather.WeatherReceiver"
+            android:name=".aokp.romcontrol.weather.WeatherReceiver"
             android:enabled="true" >
             <intent-filter>
-                <action android:name="com.aokp.romcontrol.INTENT_WEATHER_REQUEST" />
+                <action android:name="com.android.settings.aokp.romcontrol.INTENT_WEATHER_REQUEST" />
             </intent-filter>
         </receiver>
 
@@ -1908,14 +1905,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.BootService"/>
-        <service android:name=".service.HeadphoneService"/>
-        <service android:name=".service.FlipService"/>
-        <service
-            android:name=".service.ExternalCommandService"
-            android:exported="false"/>
-        <service android:name=".weather.WeatherRefreshService" />
-        <service android:name=".weather.WeatherService" />
+        <service android:name=".aokp.romcontrol.service.BootService"/>
+        <service android:name=".aokp.romcontrol.weather.WeatherRefreshService" />
+        <service android:name=".aokp.romcontrol.weather.WeatherService" />
 
     </application>
 </manifest>

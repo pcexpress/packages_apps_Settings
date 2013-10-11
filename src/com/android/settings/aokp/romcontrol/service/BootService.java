@@ -1,4 +1,4 @@
-package com.aokp.romcontrol.service;
+package com.android.settings.aokp.romcontrol.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -12,8 +12,8 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
-import com.aokp.romcontrol.weather.WeatherRefreshService;
-import com.aokp.romcontrol.weather.WeatherService;
+import com.android.settings.aokp.romcontrol.weather.WeatherRefreshService;
+import com.android.settings.aokp.romcontrol.weather.WeatherService;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,17 +50,8 @@ public class BootService extends Service {
         @Override
         protected Void doInBackground(Void... args) {
 
-            if (HeadphoneService.getUserHeadphoneAudioMode(c) != -1
-                    || HeadphoneService.getUserBTAudioMode(c) != -1) {
-                c.startService(new Intent(c, HeadphoneService.class));
-            }
-
-            if (FlipService.getUserFlipAudioMode(c) != -1
-                    || FlipService.getUserCallSilent(c) != 0)
-                c.startService(new Intent(c, FlipService.class));
-
             if (Settings.System
-                    .getBoolean(getContentResolver(), Settings.System.USE_WEATHER, false)) {
+                    .getInt(getContentResolver(), Settings.System.USE_WEATHER, 0) == 1) {
                 sendLastWeatherBroadcast();
                 getApplicationContext().startService(new Intent(c, WeatherRefreshService.class));
             }

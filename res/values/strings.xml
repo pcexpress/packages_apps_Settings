@@ -2874,6 +2874,11 @@
 
     <!-- Miscellaneous -->
     <string name="location_unavailable">Unable to retrieve location information for weather update</string>
+    <string name="weather">Weather</string>
+    <string name="header_summary_weather">@null</string>
+    <string name="title_weather">Weather Settings</string>
+    <string name="nothing">Nothing</string>
+    <string name="custom_app">Custom app</string>
 
     <!-- cardinal directions -->
     <string name="direction_north">N</string>
@@ -2884,6 +2889,21 @@
     <string name="direction_south_west">SW</string>
     <string name="direction_west">W</string>
     <string name="direction_north_west">NW</string>
+
+     <!-- weather arrays -->
+    <string name="off">Off</string>
+    <string name="time_10_minutes">10 minutes</string>
+    <string name="time_30_minutes">30 minutes</string>
+    <string name="time_45_minutes">45 minutes</string>
+    <string name="time_60_minutes">60 minutes</string>
+    <string name="time_2_hours">2 hours</string>
+    <string name="time_3_hours">3 hours</string>
+    <string name="time_4_hours">4 hours</string>
+    <string name="time_6_hours">6 hours</string>
+    <string name="time_8_hours">8 hours</string>
+    <string name="above_carrier_text">Above carrier text</string>
+    <string name="weather_panel">Weather panel</string>
+    <string name="text">Text</string>
 
     <!-- Active Display -->
     <string name="ad_settings_title">Active display</string>

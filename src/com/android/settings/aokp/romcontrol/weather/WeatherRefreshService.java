@@ -1,5 +1,5 @@
 
-package com.aokp.romcontrol.weather;
+package com.android.settings.aokp.romcontrol.weather;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
