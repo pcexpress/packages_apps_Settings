@@ -58,6 +58,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_HIGH_END_GFX = "high_end_gfx";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
+    private static final String PREF_RECENTS_CLEAR_ALL_ON_RIGHT = "recents_clear_all_on_right";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
     private static final String KEY_HALO_OPTIONS = "halo_options";
     private static final String KEY_ANIMATION_CONTROLS = "animation_controls";
@@ -69,6 +70,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
     private Preference mHaloOptions;
+    private CheckBoxPreference mClearAll;
     private String mCustomLabelText = null;
     private int newDensityValue;
     DensityChanger densityFragment;
@@ -124,6 +126,10 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
 	mHaloOptions = findPreference(KEY_HALO_OPTIONS);
 	mAnimationControls = findPreference(KEY_ANIMATION_CONTROLS);
 
+        mClearAll = (CheckBoxPreference) findPreference(PREF_RECENTS_CLEAR_ALL_ON_RIGHT);
+        mClearAll.setOnPreferenceChangeListener(this);
+        mClearAll.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.RECENTS_CLEAR_ALL_ON_RIGHT, 0) == 1);
     }
 
     private void updateCustomLabelTextSummary() {
@@ -170,8 +176,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     Settings.System.HIGH_END_GFX_ENABLED,
                     (Boolean) newValue ? 1 : 0);
             return true;
-        } 
-        return false;
+        } else if (preference == mClearAll) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_CLEAR_ALL_ON_RIGHT,
+                (Boolean) newValue ? 1 : 0);
+            return true;
+        }
+       return false;
     }
 
     public OnPreferenceClickListener mCustomLabelClicked = new OnPreferenceClickListener() {
