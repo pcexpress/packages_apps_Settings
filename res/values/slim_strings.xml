@@ -1003,8 +1003,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="lockscreen_auto_rotate_title">Allow lock screen rotation</string>
     <string name="lockscreen_auto_rotate_summary">Lock screen will have the ability to rotate. This is dependent of Auto-rotation in display</string>
     <string name="lockscreen_no_rotate_summary">System auto rotate is disabled. Enable it for this option.</string>
-    <string name="battery_around_lockscreen_ring">Battery level around lock ring</string>
-    
+
     <!-- Lock screen background -->
     <string name="lockscreen_style_options_title">Lock screen style</string>
     <string name="lockscreen_custom_background_title">Background</string>
